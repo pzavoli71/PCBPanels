@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CPCBPanelsView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_COMMAND(ID_IMPORTAZIONE_IMPORTASVGACCOPPIATI, &CPCBPanelsView::OnImportazioneImportasvgaccoppiati)
 END_MESSAGE_MAP()
 
 // Costruzione/distruzione di CPCBPanelsView
@@ -103,3 +104,9 @@ CPCBPanelsDoc* CPCBPanelsView::GetDocument() const // la versione non debug è i
 
 
 // Gestori di messaggi di CPCBPanelsView
+
+
+void CPCBPanelsView::OnImportazioneImportasvgaccoppiati()
+{
+	// TODO: aggiungere qui il codice del gestore di comandi
+}

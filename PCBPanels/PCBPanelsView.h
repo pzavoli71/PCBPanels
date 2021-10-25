@@ -40,6 +40,8 @@ protected:
 // Funzioni generate per la mappa dei messaggi
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnImportazioneImportasvgaccoppiati();
 };
 
 #ifndef _DEBUG  // versione di debug in PCBPanelsView.cpp
