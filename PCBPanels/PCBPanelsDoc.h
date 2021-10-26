@@ -4,7 +4,8 @@
 
 
 #pragma once
-
+#include "cfilesvg.h"
+#include "list"
 
 class CPCBPanelsDoc : public CDocument
 {
@@ -17,7 +18,7 @@ public:
 
 // Operazioni
 public:
-
+	BOOL AddSVGFile(CFileSVG* svg);
 // Sostituzioni
 public:
 	virtual BOOL OnNewDocument();
@@ -36,6 +37,7 @@ public:
 #endif
 
 protected:
+	std::list<CFileSVG*> m_SvgFiles;
 
 // Funzioni generate per la mappa dei messaggi
 protected:

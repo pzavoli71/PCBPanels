@@ -5,7 +5,7 @@
 #pragma once
 
 
-class CPCBPanelsView : public CView
+class CPCBPanelsView : public CScrollView
 {
 protected: // creare solo da serializzazione.
 	CPCBPanelsView() noexcept;
@@ -42,6 +42,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnImportazioneImportasvgaccoppiati();
+	virtual void OnInitialUpdate();
 };
 
 #ifndef _DEBUG  // versione di debug in PCBPanelsView.cpp

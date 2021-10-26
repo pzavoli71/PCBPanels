@@ -36,6 +36,10 @@ CPCBPanelsDoc::CPCBPanelsDoc() noexcept
 
 CPCBPanelsDoc::~CPCBPanelsDoc()
 {
+	for (auto iter = m_SvgFiles.begin(); iter != m_SvgFiles.end(); ++iter) {
+		delete *iter;
+	}
+	m_SvgFiles.clear();
 }
 
 BOOL CPCBPanelsDoc::OnNewDocument()
@@ -64,6 +68,12 @@ void CPCBPanelsDoc::Serialize(CArchive& ar)
 	{
 		// TODO: aggiungere qui il codice di caricamento.
 	}
+}
+
+
+BOOL CPCBPanelsDoc::AddSVGFile(CFileSVG* svg) {
+	m_SvgFiles.push_back(svg);
+	return TRUE;
 }
 
 #ifdef SHARED_HANDLERS
