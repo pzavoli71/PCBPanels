@@ -19,6 +19,9 @@ public:
 // Operazioni
 public:
 	BOOL AddSVGFile(CFileSVG* svg);
+	std::list<CFileSVG*>::const_iterator begin() const { return m_SvgFiles.begin(); }
+	std::list<CFileSVG*>::const_iterator end() const { return m_SvgFiles.end(); }
+
 // Sostituzioni
 public:
 	virtual BOOL OnNewDocument();

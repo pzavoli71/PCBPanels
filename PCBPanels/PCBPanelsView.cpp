@@ -59,7 +59,21 @@ void CPCBPanelsView::OnDraw(CDC* /*pDC*/)
 	if (!pDoc)
 		return;
 
-	// TODO: aggiungere qui il codice di disegno per i dati nativi.
+	CFileSVG* file(nullptr);
+	CPCBPanelsDoc* doc = GetDocument();
+	for (auto iter = doc->begin(); iter != doc->end(); ++iter) {
+		file = *iter;
+		NSVGimage *img = file->GetImmagini();
+		NSVGshape* shape = img->shapes;
+		while (shape != nullptr) {
+			NSVGpath* path = shape->paths;
+			while (path != nullptr) {
+				pDC->
+				path = path->next;
+			}
+			shape = shape->next;
+		}
+	}
 }
 
 

@@ -13,7 +13,7 @@ public:
 
 public:
 	BOOL LoadFile(CString& FileName);
-
+	NSVGimage* GetImmagini() { return immagini; }
 protected:
 	struct NSVGimage* immagini;
 };
