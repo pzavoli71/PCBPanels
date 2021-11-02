@@ -52,28 +52,57 @@ BOOL CPCBPanelsView::PreCreateWindow(CREATESTRUCT& cs)
 
 // Disegno di CPCBPanelsView
 
-void CPCBPanelsView::OnDraw(CDC* /*pDC*/)
+void CPCBPanelsView::OnDraw(CDC* pDC)
 {
 	CPCBPanelsDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+	int strokewidth = 0;
 
+	CDC dcMem;
+	dcMem.CreateCompatibleDC(pDC);
+
+	//CPen p;
+	//p.CreatePen(PS_SOLID, 200, RGB(0, 0, 0));
+	CBrush brNero;
+	brNero.CreateSolidBrush(RGB(0, 0, 0));
+	CBrush brBianco;
+	brBianco.CreateSolidBrush(RGB(255, 255, 255));
+	CBrush* brOld = pDC->SelectObject(&brNero);
+	CPen* pOld = nullptr; // pDC->SelectObject(&p);
 	CFileSVG* file(nullptr);
 	CPCBPanelsDoc* doc = GetDocument();
+	pDC->MoveTo(10000, -10000);
+	pDC->LineTo(20000, 0);
 	for (auto iter = doc->begin(); iter != doc->end(); ++iter) {
 		file = *iter;
-		NSVGimage *img = file->GetImmagini();
-		NSVGshape* shape = img->shapes;
-		while (shape != nullptr) {
-			NSVGpath* path = shape->paths;
-			while (path != nullptr) {
-				pDC->
-				path = path->next;
+
+		CBitmap* bm = file->GetBitmapBits();
+		CBitmap* oldBitmap = dcMem.SelectObject(bm);
+		dcMem.SetMapMode(pDC->GetMapMode());
+		pDC->BitBlt(0, 0, 21970, -29000, &dcMem, 0, 0, SRCCOPY);
+		/*
+		for (int i = 0; i < file->GetNumPaths(); i++) {
+			CPathSvg *path = &file->GetPaths()[i];
+			POINT* pt = path->m_pt;
+			if (path->m_fillcolor != 0)
+				pDC->SelectObject(brBianco);
+			else
+				pDC->SelectObject(brNero);
+			if (path->m_bclosed)
+				pDC->BeginPath();
+			strokewidth = path->m_strokewidth;
+			pDC->PolyBezier(pt, path->m_nPoints);
+			if (path->m_bclosed) {
+				pDC->EndPath();
+				pDC->FillPath();
 			}
-			shape = shape->next;
 		}
+		*/
 	}
+	pDC->SelectObject(pOld);
+	pDC->SelectObject(brOld);
 }
 
 
@@ -137,6 +166,8 @@ void CPCBPanelsView::OnImportazioneImportasvgaccoppiati()
 
 	fileName.ReleaseBuffer();
 
+	CClientDC dc(this);
+
 	CPCBPanelsDoc* doc = GetDocument();
 	wchar_t* pBufEnd = p + FILE_LIST_BUFFER_SIZE - 2;
 	wchar_t* start = p;
@@ -150,7 +181,7 @@ void CPCBPanelsView::OnImportazioneImportasvgaccoppiati()
 		p++;
 		if (ofn.lpstrFileTitle != nullptr) {
 			CFileSVG* svg = new CFileSVG();
-			svg->LoadFile(CString(cartella));
+			svg->LoadFile(CString(cartella), &dc);
 			doc->AddSVGFile(svg);
 			return;
 		}
@@ -164,7 +195,7 @@ void CPCBPanelsView::OnImportazioneImportasvgaccoppiati()
 			if (p > start) {
 				_tprintf(_T("%2d. %s\r\n"), fileCount, start);
 				CFileSVG* svg = new CFileSVG();
-				svg->LoadFile(CString(cartella) + CString("\\") + CString(start));
+				svg->LoadFile(CString(cartella) + CString("\\") + CString(start), &dc);
 				doc->AddSVGFile(svg);
 			}
 			p++;

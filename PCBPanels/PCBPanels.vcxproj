@@ -184,9 +184,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CFileSVG.h" />
+    <ClInclude Include="CPathSvg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="nanosvg.h" />
+    <ClInclude Include="nanosvgrast.h" />
     <ClInclude Include="PCBPanels.h" />
     <ClInclude Include="PCBPanelsDoc.h" />
     <ClInclude Include="PCBPanelsView.h" />
@@ -196,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFileSVG.cpp" />
+    <ClCompile Include="CPathSvg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="nanosvg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
